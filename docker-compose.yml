@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  api:
+    build: .
+    environment:
+     - DATABASE_MONGODB_URI=mongodb://database:27017/ship-manager
+     - DATABASE_MONGO_DBNAME=ship-manager
+    ports:
+      - "80:3000"
+    depends_on:
+      - database
+    links:
+      - database
+
+  database:
+    image: mvertes/alpine-mongo
+    ports:
+      - "27017:27017"
+

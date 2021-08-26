@@ -3,8 +3,10 @@ const { format } = require('util')
 
 const MESSAGE = 'Port with ID "%s" was not found'
 
-export class PortNotFoundError extends PortError {
-  constructor (id: string) {
+class PortNotFoundError extends PortError {
+  constructor (id) {
     super(format(MESSAGE, id))
   }
 }
+
+module.exports = { PortNotFoundError }

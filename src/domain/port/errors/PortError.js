@@ -1,5 +1,7 @@
-const { DomainError } = require('../../domain.error')
+const { DomainError } = require('../../')
 
-export class PortError extends DomainError {
+class PortError extends DomainError {
   //
 }
+
+module.exports = { PortError }

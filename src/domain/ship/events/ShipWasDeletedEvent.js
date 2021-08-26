@@ -1,16 +1,16 @@
 const { Event } = require('@irontitan/paradox')
-const { Ship } = require('../entity')
 
-export class ShipWasDeletedEvent extends Event<{}> {
-  static readonly eventName = 'ship-was-deleted'
-  readonly user: string
+class ShipWasDeletedEvent extends Event {
+  static eventName = 'ship-was-deleted'
+  user = ''
 
-  constructor (user: string) {
+  constructor (user) {
     super(ShipWasDeletedEvent.eventName, {})
-    this.user = user
+    Object.defineProperty(this, 'user', { value: user, writable: false, configurable: false })
+    Object.defineProperty(ShipDepartedEvent, 'eventName', { writable: false, configurable: false })
   }
 
-  static commit (state: Ship, event: ShipWasDeletedEvent): Ship {
+  static commit (state, event) {
     state.deletedAt = event.timestamp
     state.deletedBy = event.user
     state.updatedAt = event.timestamp

@@ -1,13 +1,12 @@
-const { Db } = require('mongodb')
 const { MongodbEventRepository } = require('@irontitan/paradox')
-const { Port } = require('../../domain/port/entity')
+const { Port } = require('../../domain')
 
-export class PortRepository extends MongodbEventRepository<Port> {
-  constructor (connection: Db) {
+class PortRepository extends MongodbEventRepository {
+  constructor (connection) {
     super(connection.collection(Port.collection), Port)
   }
 
-  async getAll (): Promise<Port[]> {
+  async getAll () {
     const documents = await this._collection.find({ 'state.deletedAt': null }).toArray()
     return documents.map(({ events }) => {
       const port = new Port()
@@ -15,3 +14,5 @@ export class PortRepository extends MongodbEventRepository<Port> {
     })
   }
 }
+
+module.exports = { PortRepository }

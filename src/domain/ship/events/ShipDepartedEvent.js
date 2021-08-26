@@ -1,23 +1,21 @@
 const { Event } = require('@irontitan/paradox')
-const { Ship } = require('../entity')
 
-interface IEventCreationParams {
-  reason: string
-}
 
-export class ShipDepartedEvent extends Event<IEventCreationParams> {
-  static readonly eventName = 'ship-departed'
-  readonly user: string
+class ShipDepartedEvent extends Event {
+  static eventName = 'ship-departed'
 
-  constructor (data: IEventCreationParams, user: string) {
+  constructor (data, user) {
     super(ShipDepartedEvent.eventName, data)
-    this.user = user
+    Object.defineProperty(this, 'user', { value: user, writable: false, configurable: false })
+    Object.defineProperty(ShipDepartedEvent, 'eventName', { writable: false, configurable: false })
   }
 
-  static commit (state: Ship, event: ShipDepartedEvent): Ship {
+  static commit (state, event) {
     state.currentPort = null
     state.updatedAt = event.timestamp
     state.updatedBy = event.user
     return state
   }
 }
+
+module.exports = { ShipDepartedEvent }

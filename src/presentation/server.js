@@ -1,7 +1,7 @@
 const { server } = require('@expresso/expresso')
 
 const { app } = require('./app')
-const { config } = require('./config')
+const { config } = require('../app-config')
 
 function start () {
   server.start(app, config)

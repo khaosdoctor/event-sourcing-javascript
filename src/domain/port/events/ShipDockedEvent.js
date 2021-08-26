@@ -1,24 +1,21 @@
 const { Event } = require('@irontitan/paradox')
-const { Port } = require('../entity')
-const { ObjectId } = require('mongodb')
 
-interface IEventCreationParams {
-  shipId: ObjectId
-}
+class ShipDockedEvent extends Event {
+  static eventName = 'ship-was-docked'
+  user = ''
 
-export class ShipDockedEvent extends Event<IEventCreationParams> {
-  static readonly eventName = 'ship-was-docked'
-  readonly user: string
-
-  constructor (data: IEventCreationParams, user: string) {
+  constructor (data, user) {
     super(ShipDockedEvent.eventName, data)
-    this.user = user
+    Object.defineProperty(this, 'user', { value: user, writable: false, configurable: false })
+    Object.defineProperty(ShipDockedEvent, 'eventName', { writable: false, configurable: false })
   }
 
-  static commit (state: Port, event: ShipDockedEvent): Port {
+  static commit (state, event) {
     if (!state.dockedShips.find((shipId) => shipId.equals(event.data.shipId))) state.dockedShips.push(event.data.shipId)
     state.updatedAt = event.timestamp
     state.updatedBy = event.user
     return state
   }
 }
+
+module.exports = { ShipDockedEvent }

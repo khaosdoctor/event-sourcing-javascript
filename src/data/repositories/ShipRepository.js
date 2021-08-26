@@ -1,13 +1,12 @@
-const { Db } = require('mongodb')
 const { MongodbEventRepository } = require('@irontitan/paradox')
-const { Ship } = require('../../domain/ship/entity')
+const { Ship } = require('../../domain')
 
-export class ShipRepository extends MongodbEventRepository<Ship> {
-  constructor (connection: Db) {
+class ShipRepository extends MongodbEventRepository {
+  constructor (connection) {
     super(connection.collection(Ship.collection), Ship)
   }
 
-  async getAll (): Promise<Ship[]> {
+  async getAll () {
     const documents = await this._collection.find({ 'state.deletedAt': null }).toArray()
 
     return documents.map(({ events }) => {
@@ -17,3 +16,5 @@ export class ShipRepository extends MongodbEventRepository<Ship> {
     })
   }
 }
+
+module.exports = { ShipRepository }

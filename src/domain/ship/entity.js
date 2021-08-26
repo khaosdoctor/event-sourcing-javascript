@@ -3,6 +3,7 @@ const { ShipWasCreatedEvent } = require('./events/ShipWasCreatedEvent')
 const { ShipWasDeletedEvent } = require('./events/ShipWasDeletedEvent')
 const { ShipDepartedEvent } = require('./events/ShipDepartedEvent')
 const { ShipDockedEvent } = require('./events/ShipDockedEvent')
+const { EventEntity } = require('@irontitan/paradox')
 
 module.exports = class Ship extends EventEntity {
   id = null
@@ -24,7 +25,7 @@ module.exports = class Ship extends EventEntity {
       [ShipDepartedEvent.eventName]: ShipDepartedEvent.commit,
       [ShipDockedEvent.eventName]: ShipDockedEvent.commit
     })
-    Object.defineProperty(this, 'collection', { writable: false, configurable: false })
+    Object.defineProperty(Ship, 'collection', { writable: false, configurable: false })
   }
 
   static create (params, user) {

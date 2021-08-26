@@ -3,8 +3,10 @@ const { format } = require('util')
 
 const MESSAGE = 'Ship with ID "%s" was not found'
 
-export class ShipNotFoundError extends ShipError {
-  constructor (id: string) {
+class ShipNotFoundError extends ShipError {
+  constructor (id) {
     super(format(MESSAGE, id))
   }
 }
+
+module.exports = { ShipNotFoundError }

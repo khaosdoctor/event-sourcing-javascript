@@ -1,24 +1,22 @@
 const { ObjectId } = require('mongodb')
 const { EventEntity } = require('@irontitan/paradox')
 const { PortWasCreatedEvent } = require('./events/PortWasCreatedEvent')
-const { IPortCreationParams } = require('../structures/IPortCreationParams')
-const { Ship } = require('../ship/entity')
 const { ShipUndockedEvent } = require('./events/ShipUndockedEvent')
 const { ShipDockedEvent } = require('./events/ShipDockedEvent')
 const { PortWasDeletedEvent } = require('./events/PortWasDeletedEvent')
 
-export class Port extends EventEntity<Port> {
-  public id: ObjectId | null = null
-  public name: string | null = null
-  public dockedShips: ObjectId[] = []
-  public createdAt: Date | null = null
-  public createdBy: string | null = null
-  public updatedAt: Date | null = null
-  public updatedBy: string | null = null
-  public deletedAt: Date | null = null
-  public deletedBy: string | null = null
+module.exports = class Port extends EventEntity {
+  id = null
+  name = null
+  dockedShips = null
+  createdAt = null
+  createdBy = null
+  updatedAt = null
+  updatedBy = null
+  deletedAt = null
+  deletedBy = null
 
-  static readonly collection = 'ports'
+  static collection = 'ports'
 
   constructor () {
     super({
@@ -27,9 +25,10 @@ export class Port extends EventEntity<Port> {
       [ShipDockedEvent.eventName]: ShipDockedEvent.commit,
       [PortWasDeletedEvent.eventName]: PortWasDeletedEvent.commit
     })
+    Object.defineProperty(Port, 'collection', { writable: false, configurable: false })
   }
 
-  static create (params: IPortCreationParams, user: string): Port {
+  static create (params, user) {
     const port = new Port()
 
     port.pushNewEvents([
@@ -39,23 +38,23 @@ export class Port extends EventEntity<Port> {
     return port
   }
 
-  undockShip (ship: Ship, reason: string, user: string): Port {
+  undockShip (ship, reason, user) {
     this.pushNewEvents([
-      new ShipUndockedEvent({ shipId: ship.id as ObjectId, reason }, user)
+      new ShipUndockedEvent({ shipId: ship.id, reason }, user)
     ])
 
     return this
   }
 
-  dockShip (ship: Ship, user: string): Port {
+  dockShip (ship, user) {
     this.pushNewEvents([
-      new ShipDockedEvent({ shipId: ship.id as ObjectId }, user)
+      new ShipDockedEvent({ shipId: ship.id }, user)
     ])
 
     return this
   }
 
-  delete (user: string) {
+  delete (user) {
     this.pushNewEvents([
       new PortWasDeletedEvent(user)
     ])

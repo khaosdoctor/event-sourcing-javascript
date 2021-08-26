@@ -7,7 +7,7 @@ class ShipService {
   #portService
 
   constructor (repository, portService) {
-    this.repository = repository
+    this.#repository = repository
     this.#portService = portService
   }
 
