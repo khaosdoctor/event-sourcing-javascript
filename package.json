@@ -1,0 +1,23 @@
+{
+  "name": "event-sourcing-javascript",
+  "version": "0.0.1",
+  "description": "> A JavaScript event sourcing example from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaosdoctor/event-sourcing-javascript.git"
+  },
+  "keywords": [],
+  "author": "Lucas Santos <hello@lsantos.dev> (https://lsantos.dev/)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/khaosdoctor/event-sourcing-javascript/issues"
+  },
+  "homepage": "https://github.com/khaosdoctor/event-sourcing-javascript#readme",
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0"
+  }
+}
