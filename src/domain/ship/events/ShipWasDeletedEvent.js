@@ -7,7 +7,7 @@ class ShipWasDeletedEvent extends Event {
   constructor (user) {
     super(ShipWasDeletedEvent.eventName, {})
     Object.defineProperty(this, 'user', { value: user, writable: false, configurable: false })
-    Object.defineProperty(ShipDepartedEvent, 'eventName', { writable: false, configurable: false })
+    Object.defineProperty(ShipWasDeletedEvent, 'eventName', { writable: false, configurable: false })
   }
 
   static commit (state, event) {
