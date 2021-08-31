@@ -33,7 +33,8 @@ function update (name, password) {
   return user
 }
 
-const john = findById(hash('lsantos.dev'))
+let john = findById(hash('lsantos.dev'))
+if (!john) john = create('John', 'lsantos.dev', '123')
 console.log(john.events)
 const lucas = john.update({ name: 'Lucas' })
 console.log(lucas.events)
