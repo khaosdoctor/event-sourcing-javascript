@@ -1,11 +1,11 @@
-FROM node:12-alpine
+FROM node:16-alpine
 
-ENV DEBUG expresso:*,gg:*
+ENV DEBUG expresso:*
 
-RUN mkdir -p /usr/src/app
-COPY ["./package.json", "./package-lock.json", "/usr/src/app/"]
-COPY ["./src", "/usr/src/app/"]
-WORKDIR /usr/src/app
+RUN mkdir -p /app
+COPY ["./package.json", "./package-lock.json", "/app/"]
+COPY ["./src/", "/app/src/"]
+WORKDIR /app
 
 RUN npm i
 

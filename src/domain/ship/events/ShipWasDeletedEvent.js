@@ -18,3 +18,5 @@ class ShipWasDeletedEvent extends Event {
     return state
   }
 }
+
+module.exports = { ShipWasDeletedEvent }
