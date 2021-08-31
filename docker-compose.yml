@@ -7,7 +7,7 @@ services:
      - DATABASE_MONGODB_URI=mongodb://database:27017/ship-manager
      - DATABASE_MONGO_DBNAME=ship-manager
     ports:
-      - "80:3000"
+      - "3000:3000"
     depends_on:
       - database
     links:
