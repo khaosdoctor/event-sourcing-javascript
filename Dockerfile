@@ -8,7 +8,6 @@ COPY ["./src", "/usr/src/app/"]
 WORKDIR /usr/src/app
 
 RUN npm i
-RUN npm run build
 
 EXPOSE 3000
 
